@@ -53,7 +53,7 @@ public class SocksStoreServiceImpl implements SocksStoreService {
 
             if (socks.getColor().equals(color) &&
                     socks.getSize().equals(size) &&
-                    socks.getCottonPark() >= cottonMax &&
+                    socks.getCottonPark() >= cottonMin &&
                     socks.getCottonPark() <= cottonMax) {
                 return socksItem.getValue();
             }

@@ -37,7 +37,7 @@ public class SocksStoreController {
     @ApiResponse(responseCode = "400", description = "Параметры запроса отсутствуют или имеют некорректный формат")
     @ApiResponse(responseCode = "500", description = "Произошла ошибка, не зависящая от вызывающей стороны")
     public ResponseEntity<ResponseDto> issuance(@RequestBody SocksBatch socksBatch) {
-        int socksCount = storeService.issuance(socksBatch);
+        int socksCount = storeService.issuance(socksBatch).getStatusCodeValue();
         return ResponseEntity.ok(new ResponseDto(socksCount + "Носков отпущено со склада"));
 
 
@@ -53,7 +53,7 @@ public class SocksStoreController {
                                                 @RequestParam Size size,
                                                 @RequestParam int cottonMin,
                                                 @RequestParam int cottonMax) {
-        int socksCount = storeService.getCount(color, size, cottonMin, cottonMax);
+        int socksCount = storeService.getCount(color, size, cottonMin, cottonMax).getStatusCodeValue();
         return ResponseEntity.ok(new ResponseDto("Количество носков" + socksCount));
     }
 
@@ -64,7 +64,7 @@ public class SocksStoreController {
     @ApiResponse(responseCode = "400", description = "Параметры запроса отсутствуют или имеют некорректный формат")
     @ApiResponse(responseCode = "500", description = "Произошла ошибка, не зависящая от вызывающей стороны")
     public ResponseEntity<ResponseDto> reject(@RequestBody SocksBatch socksBatch) {
-        int socksCount = storeService.reject(socksBatch);
+        int socksCount = storeService.reject(socksBatch).getStatusCodeValue();
         return ResponseEntity.ok(new ResponseDto(socksCount + "Носков отпущено со склада"));
     }
 }

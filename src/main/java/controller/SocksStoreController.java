@@ -11,6 +11,7 @@ import model.Size;
 import model.SocksBatch;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import service.SocksStoreService;
 
 @RestController
 @RequestMapping("/api/socks")
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class SocksStoreController {
 
 
-    private final SocksStoreController storeService;
+    private final SocksStoreService storeService;
 
     @PostMapping
     @Operation(summary = "Регистрация прихода товара на склад")
@@ -32,12 +33,12 @@ public class SocksStoreController {
     }
 
     @PutMapping
-    @Operation(summary = "Регистрирует отпуск носков со склад")
+    @Operation(summary = "Регистрирует отпуск носков со склада")
     @ApiResponse(responseCode = "200", description = "Операция успешна")
     @ApiResponse(responseCode = "400", description = "Параметры запроса отсутствуют или имеют некорректный формат")
     @ApiResponse(responseCode = "500", description = "Произошла ошибка, не зависящая от вызывающей стороны")
     public ResponseEntity<ResponseDto> issuance(@RequestBody SocksBatch socksBatch) {
-        int socksCount = storeService.issuance(socksBatch).getStatusCodeValue();
+        int socksCount = storeService.issuance(socksBatch);
         return ResponseEntity.ok(new ResponseDto(socksCount + "Носков отпущено со склада"));
 
 
@@ -53,7 +54,7 @@ public class SocksStoreController {
                                                 @RequestParam Size size,
                                                 @RequestParam int cottonMin,
                                                 @RequestParam int cottonMax) {
-        int socksCount = storeService.getCount(color, size, cottonMin, cottonMax).getStatusCodeValue();
+        int socksCount = storeService.getCount(color, size, cottonMin, cottonMax);
         return ResponseEntity.ok(new ResponseDto("Количество носков" + socksCount));
     }
 
@@ -64,7 +65,7 @@ public class SocksStoreController {
     @ApiResponse(responseCode = "400", description = "Параметры запроса отсутствуют или имеют некорректный формат")
     @ApiResponse(responseCode = "500", description = "Произошла ошибка, не зависящая от вызывающей стороны")
     public ResponseEntity<ResponseDto> reject(@RequestBody SocksBatch socksBatch) {
-        int socksCount = storeService.reject(socksBatch).getStatusCodeValue();
+        int socksCount = storeService.reject(socksBatch);
         return ResponseEntity.ok(new ResponseDto(socksCount + "Носков отпущено со склада"));
     }
 }

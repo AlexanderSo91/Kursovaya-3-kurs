@@ -19,6 +19,7 @@ public class SocksStoreServiceImpl implements SocksStoreService {
 
     private final SocksRepository socksRepository;
     private final ValidationService validationService;
+    int sum;
 
     @Override
     public void accept(SocksBatch socksBatch) {
@@ -54,12 +55,14 @@ public class SocksStoreServiceImpl implements SocksStoreService {
             if (socks.getColor().equals(color) &&
                     socks.getSize().equals(size) &&
                     socks.getCottonPark() >= cottonMin &&
-                    socks.getCottonPark() <= cottonMax) {
-                return socksItem.getValue();
+                    socks.getCottonPark() <= cottonMax)
+                    socksItem.getValue();{
+                return sum;
             }
         }
         return 0;
     }
+
 
     private void checkSocksBatch(SocksBatch socksBatch) {
         if (!validationService.validate(socksBatch)){
